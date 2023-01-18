@@ -1,4 +1,8 @@
-import Home from './Home'
-import Register from './Register'
+import Login from './Auth/Login.js'
+import Weights from './Weights'
+import Kalorien from './Kalorien'
+import Übungen from './Übungen'
+import Settings from './Settings'
+import Logout from './Auth/Logout'
 
-export {Home, Register}
+export {Login, Weights, Kalorien, Übungen, Settings, Logout}

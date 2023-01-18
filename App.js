@@ -1,16 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
-import StackNavigator from './src/StackNavigator.js'
-import BottomTabsNavigator from './src/BottomTabsNavigator'
+import LoginStack from './src/LoginStack.js'
+import 'react-native-gesture-handler';
+import React, {useState} from 'react';
+import UserContext from './src/UserContext.js'
 
 export default function App() {
-  return (
-    
-
-
-    
+  const [userContext, setUserContext] = useState(null)
+  return (    
     <NavigationContainer>
-      <BottomTabsNavigator />
-      {/* <StackNavigator /> */}
+      <UserContext.Provider value={{userContext, setUserContext}}>
+        <LoginStack />
+      </UserContext.Provider>
     </NavigationContainer>
 
   );
