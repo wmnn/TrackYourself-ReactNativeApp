@@ -4,5 +4,6 @@ import Kalorien from './Kalorien'
 import Übungen from './Übungen'
 import Settings from './Settings'
 import Logout from './Auth/Logout'
+import CreateDefaultList from './CreateDefaultList.js'
 
-export {Login, Weights, Kalorien, Übungen, Settings, Logout}
+export {Login, Weights, Kalorien, Übungen, Settings, Logout, CreateDefaultList}

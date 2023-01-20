@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react'
 import {SafeAreaView, ScrollView, Text, View, TextInput, TouchableOpacity, ActivityIndicator} from 'react-native'
 import UserContext from '../../UserContext.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -20,7 +21,8 @@ function AddWeights() {
     async function handleSubmit() {
         setLoadingIcon((prev) => !prev)
         const tmpDate = date.toISOString().substring(0, 10)
-        //console.log("tmpDate=" + tmpDate)
+        const token = await AsyncStorage.getItem("x-auth-token")
+  
         
         await fetch("http://localhost:8000/api/weights", {
           method: 'POST',
@@ -30,7 +32,8 @@ function AddWeights() {
           },
           body: JSON.stringify({
             date: tmpDate,
-            weight: weight
+            weight: weight,
+            'x-auth-token': token,
           }),
         }).then( res => { 
           return res.json() 

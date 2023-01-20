@@ -61,7 +61,9 @@ function MapWeights() {
                           <Text className='basis-0 grow text-center'>{weight.date === null? "" : weight.date.slice(8,10) + "." + weight.date.slice(5,7)}</Text>
                           <Text className='basis-0 grow text-center'>{weight.weight} kg</Text>
                           
-                          <TouchableOpacity onPress={(props) => handleDelete({weight})} className='basis-0 grow flex items-center'><Icon size={36} color="#BA1000" name="close-outline"/></TouchableOpacity>
+                          <TouchableOpacity onPress={(props) => handleDelete({weight})} className='basis-0 grow flex items-center'>
+                              <Icon size={36} color="#BA1000" name="close-outline"/>
+                          </TouchableOpacity>
                         
                         </View>
                       )

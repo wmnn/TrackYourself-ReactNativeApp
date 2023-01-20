@@ -2,6 +2,8 @@ import React, {useEffect, useContext, useState} from 'react'
 import UserContext from '../../UserContext';
 import {View, Text, TouchableOpacity, ActivityIndicator, Button} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 function MapKalorien() {
     const {userContext, setUserContext} = useContext(UserContext);
@@ -33,16 +35,16 @@ function MapKalorien() {
 
     async function handleDelete({mahlzeit}, date){
         setLoadingIcon((prev) => !prev)
-        const tmpDate = date/*.toISOString().substring(0, 10);*/
+        const token = await AsyncStorage.getItem("x-auth-token")
     
         //DELETE REQUEST
         await fetch(`http://localhost:8000/api/mahlzeit`, {
             method: 'DELETE',
-            credentials: 'include', 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 mahlzeit: mahlzeit,
-                date: tmpDate
+                date: date,
+                'x-auth-token': token
             }),
         }).then(res => {
         return res.json()    

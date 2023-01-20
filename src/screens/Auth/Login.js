@@ -10,11 +10,13 @@ function Login({navigation}) {
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
 
-  const navgiateWeights = (res) => {
-    console.log(res);
-    setUserContext(res.user)
-    
-    navigation.navigate("DrawerStack", {screen: "BottomTabNavigator"})
+  async function handleNavigate (res){
+    try{
+      //console.log(res.user)
+      setUserContext(res.user)
+      res.user.defaultWorkoutList ? res.user.defaultWorkoutList.length == 0 ? navigation.navigate("CreateDefaultList") : navigation.navigate("DrawerStack", {screen: "BottomTabNavigator"}) : ""
+    }catch(e){
+    }
   }
 
   const handlePress = async () => {
@@ -32,10 +34,10 @@ function Login({navigation}) {
             return res.json()    
         }).then(res => {
             if(res.status === 200){
-              
+              setAsyncStorage("base_url", res.user.base_url)
+              setAsyncStorage("user", JSON.stringify(res.user));
               setAsyncStorage("x-auth-token", res['x-auth-cookie'])
-              navgiateWeights(res);
-              
+              handleNavigate(res);              
             }else{
               console.log(res)
             }
@@ -67,7 +69,7 @@ function Login({navigation}) {
                 return res.json()    
             }).then(res => {
                 if(res.status === 200){
-                  navgiateWeights(res);
+                  handleNavigate(res);
                 }else{
                   
                 }
@@ -109,7 +111,7 @@ function Login({navigation}) {
 
       <View className="">
 
-        <Text className="text-stone-900 my-40 text-[36px] mx-10">Here is some Headline</Text>
+        <Text className="text-stone-900 my-40 text-[36px] mx-10">Werd fit und halte dein Gewicht konstant</Text>
         <View className="flex flex-col items-center justify-between h-40 mx-10">
           <TextInput placeholder="Email" onChangeText={(newEmail) => setEmail(newEmail)} defaultValue={email} className=" border-[1px] border-stone-400 color-stone-900 text-[32px] rounded w-full" placeholderTextColor="#CCC" autoCorrect={false}/>
           <TextInput placeholder="Password" onChangeText={(newPassword) => setPassword(newPassword)} defaultValue={password} className="border-[1px] border-stone-400 color-stone-900 text-[32px] rounded w-full" placeholderTextColor="#CCC" secureTextEntry={true} autoCorrect={false}/>
